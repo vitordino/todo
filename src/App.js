@@ -1,5 +1,6 @@
 import React, {  Fragment } from 'react'
 import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import 'minireset.css'
 import { useAuthState } from './utils/firebase-hooks'
 import ToDo from './components/ToDo'
 import SignIn from './components/SignIn'
