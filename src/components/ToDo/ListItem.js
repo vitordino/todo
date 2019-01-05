@@ -28,8 +28,9 @@ const IconWrapper = styled.button`
 	justify-content: center;
 	cursor: pointer;
 	color: ${p => p.completed ? p.theme.colors.base22 : p.theme.colors.base11};
+	outline: none;
 	&:hover, &:focus, &:active{
-		color: ${p => p.theme.colors.base44};
+		color: ${p => p.theme.colors.base66};
 	}
 	svg {
 		display: block;
@@ -48,9 +49,9 @@ const Top = styled.div`
 
 const DeleteButton = styled.button`
 	border: 0;
-	background-color: ${p => p.theme.colors.white};
+	background: ${p => p.completed ?  p.theme.colors.base03 : p.theme.colors.white};
 	color: ${p => p.theme.colors.base22};
-	box-shadow: 0 0 3rem ${p => p.theme.colors.white};
+	box-shadow: 0 0 3rem ${p => p.completed ?  p.theme.colors.base03 : p.theme.colors.white};
 	cursor: pointer;
 	display: flex;
 	align-items: center;
@@ -62,6 +63,7 @@ const DeleteButton = styled.button`
 	padding: 1rem;
 	transition: 0.2s opacity;
 	opacity: 0;
+	outline: none;
 	${Wrapper}:hover &, ${Wrapper}:focus &, ${Wrapper}:active &, &:focus, &:active {
 		opacity: 1;
 	}
@@ -130,7 +132,7 @@ const ListItem = ({
 			</Paragraph>
 		</Main>
 		<div>
-			<DeleteButton onClick={() => removeToDo(id)}>
+			<DeleteButton completed={completed} onClick={() => removeToDo(id)}>
 				<Feather icon='delete'/>
 			</DeleteButton>
 		</div>
