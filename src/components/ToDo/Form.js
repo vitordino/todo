@@ -4,7 +4,7 @@ import { addToDo } from '../../actions'
 import { useAuthState } from '../../utils/firebase-hooks'
 
 const Form = () => {
-	const [formState, {text, select, date}] = useFormState()
+	const [formState, {text, select, date}] = useFormState({priority: 'low'})
 	const { uid } = useAuthState()
 	return (
 		<form
@@ -31,14 +31,14 @@ const Form = () => {
 			</div>
 
 			<div>
-				<label to='dueDate'>
-					due date
-					<input {...date('dueDate')} required/>
+				<label to='dueTime'>
+					due time
+					<input {...date('dueTime')} type="datetime-local" required/>
 				</label>
 			</div>
 
 			<button type='submit'>submit</button>
-			{/* <pre>{JSON.stringify(formState, null, 2)}</pre> */}
+			<pre>{JSON.stringify(formState, null, 2)}</pre>
 		</form>
 	)
 }
