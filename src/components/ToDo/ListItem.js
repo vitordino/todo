@@ -1,7 +1,7 @@
 import React from 'react'
-import { removeToDo, updateToDo } from '../../../actions'
+import { removeToDo, updateToDo } from '../../actions'
 
-const Item = ({created, completed, dueDate, priority, title, id}) => (
+const ListItem = ({created, completed, dueDate, priority, title, id}) => (
 	<div style={{margin: '2rem 0', background: '#fafafa'}}>
 		<pre>{JSON.stringify({created, completed, dueDate, priority, title, id})}</pre>
 		{' '}
@@ -16,4 +16,4 @@ const Item = ({created, completed, dueDate, priority, title, id}) => (
 )
 
 
-export default Item
+export default ListItem

@@ -1,6 +1,6 @@
 import React from 'react'
-import Item from './Item'
-import {useAuthState, useList} from '../../../utils/firebase-hooks'
+import ListItem from './ListItem'
+import {useAuthState, useList} from '../../utils/firebase-hooks'
 
 const List = () => {
 	const { uid } = useAuthState()
@@ -11,7 +11,7 @@ const List = () => {
 	if(!list || !list.length) return 'You don’t have any tasks yet'
 
 	return list.map((snapshot) => (
-		<Item key={snapshot.key} {...snapshot.val()} id={snapshot.key}/>
+		<ListItem key={snapshot.key} {...snapshot.val()} id={snapshot.key}/>
 	))
 }
 
