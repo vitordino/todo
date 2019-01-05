@@ -1,19 +1,29 @@
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import firebase from './firebase'
-import { Provider } from './components/FirebaseContext'
-import Routes from './Routes'
+import React, {  Fragment } from 'react'
+import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { useAuthState } from './utils/firebase-hooks'
+import ToDo from './components/ToDo'
+import SignIn from './components/SignIn'
+
+const AuthRedirects = withRouter(({location}) => {
+	const { uid } = useAuthState()
+	if(uid && location.pathname === '/login') return <Redirect to='/'/>
+	if(!uid && location.pathname !== '/login') return <Redirect to='/login'/>
+	return null
+})
 
 const App = () => {
-	const { initialising } = useAuthState(firebase.auth())
-	if(initialising) return 'loading...'
+	const { loading } = useAuthState()
+	if(loading) return 'loading...'
 	return (
-		<Provider firebase={firebase}>
-			<BrowserRouter>
-				<Routes/>
-			</BrowserRouter>
-		</Provider>
+		<BrowserRouter>
+			<Fragment>
+				<AuthRedirects/>
+				<Switch>
+					<Route exact path='/login' component={SignIn}/>
+					<Route exact path='/' component={ToDo}/>
+				</Switch>
+			</Fragment>
+		</BrowserRouter>
 	)
 }
 

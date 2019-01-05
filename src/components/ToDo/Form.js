@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormState } from 'react-use-form-state'
 import { addToDo } from '../../actions'
-import { useAuthState } from '../FirebaseContext'
+import { useAuthState } from '../../utils/firebase-hooks'
 
 const Form = () => {
 	const [formState, {text, select, date}] = useFormState()
@@ -38,7 +38,7 @@ const Form = () => {
 			</div>
 
 			<button type='submit'>submit</button>
-			<pre>{JSON.stringify(formState, null, 2)}</pre>
+			{/* <pre>{JSON.stringify(formState, null, 2)}</pre> */}
 		</form>
 	)
 }

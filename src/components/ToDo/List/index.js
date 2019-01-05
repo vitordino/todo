@@ -1,6 +1,6 @@
 import React from 'react'
 import Item from './Item'
-import {useList, useAuthState} from '../../FirebaseContext'
+import {useAuthState, useList} from '../../../utils/firebase-hooks'
 
 const List = () => {
 	const { uid } = useAuthState()
