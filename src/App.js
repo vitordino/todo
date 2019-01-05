@@ -1,7 +1,7 @@
-import React, {  Fragment } from 'react'
+import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom'
-import 'minireset.css'
 import { useAuthState } from './utils/firebase-hooks'
+import Layout from './components/Layout'
 import ToDo from './components/ToDo'
 import SignIn from './components/SignIn'
 
@@ -17,13 +17,13 @@ const App = () => {
 	if(loading) return 'loading...'
 	return (
 		<BrowserRouter>
-			<Fragment>
+			<Layout>
 				<AuthRedirects/>
 				<Switch>
 					<Route exact path='/login' component={SignIn}/>
 					<Route exact path='/' component={ToDo}/>
 				</Switch>
-			</Fragment>
+			</Layout>
 		</BrowserRouter>
 	)
 }
