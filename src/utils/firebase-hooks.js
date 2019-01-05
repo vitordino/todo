@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import * as hooks from 'react-firebase-hooks/database'
-import firebase from '../firebase'
+import firebase from './firebase'
 
 export const useAuthState = () => {
 	const [{user, loading}, setState] = useState({

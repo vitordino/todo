@@ -1,4 +1,4 @@
-import firebase, { todosRef, provider } from '../firebase'
+import firebase, { todosRef, provider } from '../utils/firebase'
 
 export const addToDo = (data) => {
 	const {uid} = (firebase.auth().currentUser || {})
