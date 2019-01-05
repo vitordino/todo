@@ -25,6 +25,7 @@ const Layout = props => (
 	<ThemeProvider theme={theme}>
 		<Fragment>
 			<GlobalStyle/>
+
 			<div {...props}/>
 		</Fragment>
 	</ThemeProvider>

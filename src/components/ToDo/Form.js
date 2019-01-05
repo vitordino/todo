@@ -12,7 +12,7 @@ const Form = () => {
 		return new Date(localNow + fifteenMinutes).toISOString().replace(/\..+/, '')
 	}, [])
 
-	const initialState = {priority: 'mid', dueTime: initialDueTime}
+	const initialState = {priority: 0, dueTime: initialDueTime}
 	const [formState, {text, select, date}] = useFormState(initialState)
 	const { uid } = useAuthState()
 	return (
@@ -32,9 +32,9 @@ const Form = () => {
 				<label to='priority'>
 					priority
 					<select {...select('priority')} required>
-						<option value="low">low</option>
-						<option value="mid">medium</option>
-						<option value="high">high</option>
+						<option value="0">low</option>
+						<option value="1">medium</option>
+						<option value="2">high</option>
 					</select>
 				</label>
 			</div>
