@@ -1,28 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import firebase from './firebase'
+import { Provider } from './components/FirebaseContext'
+import Routes from './Routes'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const App = () => {
+	const { initialising } = useAuthState(firebase.auth())
+	if(initialising) return 'loading...'
+	return (
+		<Provider firebase={firebase}>
+			<BrowserRouter>
+				<Routes/>
+			</BrowserRouter>
+		</Provider>
+	)
 }
 
-export default App;
+export default App
