@@ -6,6 +6,7 @@ import Feather from './Feather'
 
 const Wrapper = styled.div`
 	background: ${p => p.theme.colors.white};
+	margin-bottom: 2rem;
 `
 
 const Flex = styled.div`
@@ -21,7 +22,7 @@ const Button = styled.button`
 	appearence: none;
 	padding: 0.5rem;
 	border-radius: 0.25rem;
-	margin: 0.675rem;
+	margin: 0.675rem 0 0.675rem 1rem;
 	cursor: pointer;
 	background: ${p => p.theme.colors.base03};
 	color: ${p => p.theme.colors.base44};

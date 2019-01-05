@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { signOut } from '../../actions'
 import Navbar from '../Navbar'
-import Container from '../Container'
 import Form from './Form'
 import List from './List'
 
 const ToDo = () => (
-	<div>
+	<Fragment>
 		<Navbar signOut={signOut}/>
-		<Container style={{position: 'relative'}}>
-			<List/>
+		<div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+			<List style={{flex: 1}}/>
 			<Form/>
-		</Container>
-	</div>
+		</div>
+	</Fragment>
 )
 
 export default ToDo

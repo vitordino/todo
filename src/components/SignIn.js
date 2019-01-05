@@ -3,7 +3,7 @@ import { signIn } from '../actions'
 import Navbar from './Navbar'
 
 const SignIn = ({...props}) => (
-	<div>
+	<div style={{flex: 1}}>
 		<Navbar signIn={signIn}/>
 		<h4 id='sign-in-header'>Sign In to start</h4>
 	</div>
