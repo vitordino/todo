@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import reset from 'minireset.css'
-import styled, { ThemeProvider, css, createGlobalStyle } from 'styled-components'
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import theme from '../theme'
 
 const GlobalStyle = createGlobalStyle`
