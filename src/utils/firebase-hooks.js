@@ -10,7 +10,7 @@ export const useAuthState = () => {
 
 	useEffect(() => firebase.auth().onAuthStateChanged(
 			user => setState({user, loading: false})
-	), [firebase])
+	), [])
 
 	return { ...(user ? user.toJSON() : {}), loading }
 }
