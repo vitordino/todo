@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import ListItem from './ListItem'
 import {useAuthState, useList} from '../../utils/firebase-hooks'
+import { toArray } from '../../utils/firebase'
 import Container from '../Container'
 
 const List = props => {
@@ -25,8 +26,8 @@ const List = props => {
 					<option value={value}>{label}</option>
 				))}
 			</select>
-			{list.map(snapshot => (
-				<ListItem key={snapshot.key} {...snapshot.val()} id={snapshot.key}/>
+			{toArray(list).map(x => (
+				<ListItem {...x} key={x.key} id={x.key}/>
 			))}
 		</Container>
 	)
