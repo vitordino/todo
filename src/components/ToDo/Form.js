@@ -47,7 +47,7 @@ const Form = () => {
 	}, [])
 
 	const initialState = {priority: 0, dueTime: initialDueTime}
-	const [formState, {text, select, date, radio}] = useFormState(initialState)
+	const [formState, {text, date, radio}] = useFormState(initialState)
 	const { uid } = useAuthState()
 	return (
 		<Wrapper

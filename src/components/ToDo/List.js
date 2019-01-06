@@ -30,6 +30,7 @@ const List = props => {
 
 	const filterCompleted = (status, array) => {
 		if(status === 'all') return array
+		// eslint-disable-next-line eqeqeq
 		return array.filter(({completed}) => completed == !!status)
 	}
 
