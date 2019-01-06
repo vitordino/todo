@@ -39,7 +39,12 @@ const Navbar = ({signIn, signOut}) => (
 				<Paragraph size={2} uppercase weight={600}>To — Do</Paragraph>
 				{(signIn || signOut) && (
 					<Button onClick={signIn || signOut}>
-						<Feather size={18} strokeWidth={2.375} icon={signIn ? 'log-in' : 'log-out'}/>
+						<Feather
+							size={18}
+							strokeWidth={2.375}
+							icon={signIn ? 'log-in' : 'log-out'}
+							style={{display: 'block'}}
+						/>
 					</Button>
 				)}
 			</Flex>
