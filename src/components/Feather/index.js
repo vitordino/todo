@@ -14,9 +14,9 @@ const Feather = ({
 	...props,
 }) => (
 	<svg
-		fill="none"
-		strokeLinecap="round"
-		strokeLinejoin="round"
+		fill='none'
+		strokeLinecap='round'
+		strokeLinejoin='round'
 		width={size}
 		height={size}
 		stroke={color}
