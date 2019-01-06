@@ -3,6 +3,7 @@ import ListItem from './ListItem'
 import {useAuthState, useList} from '../../utils/firebase-hooks'
 import { toArray } from '../../utils/firebase'
 import Container from '../Container'
+import Select from '../Select'
 
 const List = props => {
 	const { uid } = useAuthState()
@@ -21,11 +22,11 @@ const List = props => {
 
 	return (
 		<Container {...props}>
-			<select value={sortBy} onChange={e => setSortBy(e.target.value)}>
-				{sortOptions.map(({value, label}) => (
-					<option value={value}>{label}</option>
-				))}
-			</select>
+			<Select
+				value={sortBy}
+				onChange={e => setSortBy(e.target.value)}
+				options={sortOptions}
+			/>
 			{toArray(list).map(x => (
 				<ListItem {...x} key={x.key} id={x.key}/>
 			))}
