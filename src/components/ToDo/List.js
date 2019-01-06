@@ -8,6 +8,7 @@ import Select from '../Select'
 const List = props => {
 	const { uid } = useAuthState()
 	const [sortBy, setSortBy] = useState('key')
+	const [filter, setFilter] = useState('all')
 	const { error, loading, value: list } = useList(`todos/${uid}`, sortBy)
 
 	if(error) return <Container {...props}>error: {error.message}</Container>
@@ -20,14 +21,33 @@ const List = props => {
 		{value: 'priority', label: 'Priority'},
 	]
 
+	const filterOptions = [
+		{value: 'all', label: 'All'},
+		// very hacky approach to boolean coercion (input values has to be strings)
+		{value: '', label: 'Current'},
+		{value: ' ', label: 'Completed'},
+	]
+
+	const filterCompleted = (status, array) => {
+		if(status === 'all') return array
+		return array.filter(({completed}) => completed == !!status)
+	}
+
 	return (
 		<Container {...props}>
-			<Select
-				value={sortBy}
-				onChange={e => setSortBy(e.target.value)}
-				options={sortOptions}
-			/>
-			{toArray(list).map(x => (
+			<div style={{display: 'flex', justifyContent: 'space-between'}}>
+				<Select
+					value={filter}
+					onChange={e => setFilter(e.target.value)}
+					options={filterOptions}
+				/>
+				<Select
+					value={sortBy}
+					onChange={e => setSortBy(e.target.value)}
+					options={sortOptions}
+				/>
+			</div>
+			{filterCompleted(filter, toArray(list)).map(x => (
 				<ListItem {...x} key={x.key} id={x.key}/>
 			))}
 		</Container>
