@@ -7,6 +7,9 @@ import Feather from './Feather'
 const Wrapper = styled.div`
 	background: ${p => p.theme.colors.white};
 	margin-bottom: 2rem;
+	top: 0;
+	position: sticky;
+	z-index: 2;
 `
 
 const Flex = styled.div`
