@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { addMinutes, format } from 'date-fns'
 import { useFormState } from 'react-use-form-state'
 import styled from 'styled-components'
 import { addToDo } from '../../actions'
@@ -38,13 +39,9 @@ const Button = styled.button`
 `
 
 const Form = () => {
-	const initialDueTime = useMemo(() => {
-		const now = Date.now()
-		const timezone = new Date().getTimezoneOffset() * 60 * 1000
-		const localNow = new Date(now - timezone).valueOf()
-		const fifteenMinutes = 15 * 60 * 1000
-		return new Date(localNow + fifteenMinutes).toISOString().replace(/\..+/, '')
-	}, [])
+	const initialDueTime = useMemo(() => (
+		format(addMinutes(Date.now(), 15), ['YYYY-MM-DDTHH:mm:ss'])
+	), [])
 
 	const initialState = {priority: 0, dueTime: initialDueTime}
 	const [formState, {text, date, radio}] = useFormState(initialState)
