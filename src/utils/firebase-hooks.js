@@ -15,4 +15,6 @@ export const useAuthState = () => {
 	return { ...(user ? user.toJSON() : {}), loading }
 }
 
-export const useList = path => hooks.useList(firebase.database().ref(path))
+export const useList = (path, orderBy = 'key') => (
+	hooks.useList(firebase.database().ref(path).orderByChild(orderBy))
+)
