@@ -29,6 +29,7 @@ const Field = styled.input`
 
 const Option = styled.label`
 	padding: 0.375rem 0.5rem;
+	cursor: pointer;
 `
 
 const RadioLabel = styled.span`
@@ -37,7 +38,6 @@ const RadioLabel = styled.span`
 	font-weight: 600;
 	letter-spacing: 0.025rem;
 	color: ${p => p.theme.colors.base22};
-	cursor: pointer;
 	${Field}:checked ~ & {
 		color: ${p => p.color || p.theme.colors.base66};
 	}
