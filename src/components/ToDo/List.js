@@ -48,8 +48,8 @@ const List = props => {
 					options={sortOptions}
 				/>
 			</div>
-			{filterCompleted(filter, toArray(list)).map(x => (
-				<ListItem {...x} key={x.key} id={x.key}/>
+			{filterCompleted(filter, toArray(list)).map((x, i) => (
+				<ListItem {...x} key={x.key} id={x.key} index={i}/>
 			))}
 		</Container>
 	)

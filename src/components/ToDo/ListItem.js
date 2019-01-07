@@ -1,9 +1,19 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import { removeToDo, updateToDo } from '../../actions'
+import { useCurrentTime } from '../../contexts/CurentTime'
 import Feather from '../Feather'
 import RelativeTime from '../RelativeTime'
 import {Paragraph} from '../Text'
+
+const glow = keyframes`
+	from{
+		box-shadow: 0 0 0 2px hsla(-8,100%,50%,1), 0 0 0rem 0 hsla(-8,100%,50%,0);
+	}
+	to{
+		box-shadow: 0 0 0 2px hsla(-8,100%,50%,1), 0 0 1.5rem 2px hsla(-8,100%,50%,0.2);
+	}
+`
 
 const Wrapper = styled.div`
 	display: flex;
@@ -17,9 +27,13 @@ const Wrapper = styled.div`
 	border-radius: 0.25rem;
 	box-sizing: border-box;
 	overflow-x: hidden;
+	${p => p.expired && !p.completed && css`
+		box-shadow: 0 0 0 2px hsla(-8,100%,50%,1)};
+		animation: ${glow} 0.5s ${p => (p.index+1)/8}s alternate infinite;
+	`}
 `
 
-const IconWrapper = styled.button`
+const CompleteButton = styled.button`
 	border: none;
 	background: transparent;
 	margin: -0.375rem 0.125rem -0.375rem -0.75rem;
@@ -91,6 +105,12 @@ const getPriorityColor = ({priority, completed, theme}) => {
 const priorityLabels = ['Low', 'Medium', 'High']
 const getPriorityText = priority => `${(priorityLabels[priority] || 'No')} priority`
 
+const getDueTimeColor = ({completed, expired, theme}) => {
+	if(completed) return theme.colors.base22
+	if(expired) return 'red'
+	return theme.colors.base44
+}
+
 const ListItem = ({
 	created,
 	completed,
@@ -98,34 +118,39 @@ const ListItem = ({
 	priority,
 	title,
 	id,
+	index,
 	...props
-}) => (
-	<Wrapper completed={completed}>
-		<IconWrapper
-			completed={completed}
-			onClick={() => updateToDo(id, {completed: !completed})}
-			>
-			<Feather icon={completed ? 'check-circle' : 'circle'}/>
-		</IconWrapper>
-		<Main>
-			<Top>
-				<Details color={getPriorityColor} priority={priority} completed={completed}>
-					{getPriorityText(priority)}
-				</Details>
-				<Details color={p => completed ? p.theme.colors.base22 : p.theme.colors.base44}>
-					<RelativeTime time={dueTime}/>
-				</Details>
-			</Top>
-			<Paragraph color={p => completed ? p.theme.colors.base44 : p.theme.colors.base88}>
-				{title}
-			</Paragraph>
-		</Main>
-		<div>
-			<DeleteButton completed={completed} onClick={() => removeToDo(id)}>
-				<Feather icon='delete'/>
-			</DeleteButton>
-		</div>
-	</Wrapper>
-)
+}) => {
+	const expired = useCurrentTime(current => current > dueTime)
+	return (
+		<Wrapper expired={expired} completed={completed} index={index}>
+			<CompleteButton
+				completed={completed}
+				onClick={() => updateToDo(id, {completed: !completed})}
+				>
+				<Feather icon={completed ? 'check-circle' : 'circle'}/>
+			</CompleteButton>
+			<Main>
+				<Top>
+					<Details color={getPriorityColor} priority={priority} completed={completed}>
+						{getPriorityText(priority)}
+					</Details>
+					<Details expired={expired} completed={completed} color={getDueTimeColor}>
+						<RelativeTime time={dueTime}/>
+					</Details>
+				</Top>
+				<Paragraph color={p => completed ? p.theme.colors.base44 : p.theme.colors.base88}>
+					{title}
+				</Paragraph>
+			</Main>
+			<div>
+				<DeleteButton completed={completed} onClick={() => removeToDo(id)}>
+					<Feather icon='delete'/>
+				</DeleteButton>
+			</div>
+		</Wrapper>
+	)
+}
+
 
 export default ListItem
