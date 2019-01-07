@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useState, useEffect} from 'react'
 
+const identity = x => x
 const initialState = Date.now()
 const Context = createContext(initialState)
 
@@ -17,4 +18,4 @@ export const Provider = ({children}) => {
 }
 
 export default Context
-export const useCurrentTime = () => useContext(Context)
+export const useCurrentTime = (fn = identity) => fn(useContext(Context))
