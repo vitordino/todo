@@ -21,7 +21,7 @@ const Flex = styled.div`
 const Button = styled.button`
 	margin: 0;
 	border: 0;
-	display: block;
+	display: flex;
 	appearence: none;
 	padding: 0.5rem;
 	border-radius: 0.25rem;
@@ -33,6 +33,14 @@ const Button = styled.button`
 		background: ${p => p.theme.colors.base06};
 		color: ${p => p.theme.colors.base88};
 	}
+`
+
+const ButtonText = styled.div`
+	font-size: 0.875rem;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 0.025rem;
+	margin: 0 0.375rem;
 `
 
 const Navbar = () => {
@@ -48,6 +56,7 @@ const Navbar = () => {
 					</Paragraph>
 					{!loading && (
 						<Button onClick={uid ? signOut : signIn}>
+							<ButtonText>{uid ? 'Log out' : 'Log in'}</ButtonText>
 							<Feather
 								size={18}
 								strokeWidth={2.375}
