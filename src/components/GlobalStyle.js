@@ -24,6 +24,13 @@ const GlobalStyle = createGlobalStyle`
 			display: flex;
 			flex-direction: column;
 		}
+		button{
+			outline: none;
+			border-radius: 0.125rem
+		}
+		button:focus{
+			box-shadow: 0 0 0 0.125rem dodgerblue;
+		}
 	`}
 `
 

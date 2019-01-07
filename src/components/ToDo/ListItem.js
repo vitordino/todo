@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 const CompleteButton = styled.button`
 	border: none;
 	background: transparent;
-	margin: -0.375rem 0.125rem -0.375rem -0.75rem;
+	margin: -0.375rem 0.125rem -0.375rem -0.625rem;
 	padding: 0.75rem;
 	display: flex;
 	align-items: center;
@@ -87,6 +87,7 @@ const DeleteButton = styled.button`
 	&:hover, &:focus, &:active {
 		background: crimson;
 		color: ${p => p.theme.colors.white};
+		box-shadow: none;
 	}
 `
 

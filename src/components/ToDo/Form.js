@@ -37,6 +37,7 @@ const Button = styled.button`
 	background: ${p => p.theme.colors.base11};
 	color: ${p => p.theme.colors.base44};
 	cursor: pointer;
+	outline: none;
 	&:hover, &:focus, &:active {
 		background: ${p => p.theme.colors.base88};
 		color: ${p => p.theme.colors.white};
