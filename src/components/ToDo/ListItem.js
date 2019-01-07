@@ -3,6 +3,7 @@ import styled, { keyframes, css } from 'styled-components'
 import { removeToDo, updateToDo } from '../../actions'
 import { useCurrentTime } from '../../contexts/CurentTime'
 import {getPriorityColor, getPriorityText, getDueTimeColor} from '../../utils/item'
+import ContentLoader from '../ContentLoader'
 import Feather from '../Feather'
 import RelativeTime from '../RelativeTime'
 import {Paragraph} from '../Text'
@@ -140,5 +141,21 @@ const ListItem = ({
 	)
 }
 
+export const LoadingItem = props => (
+	<Wrapper {...props}>
+		<ContentLoader
+			height={56}
+			speed={2}
+			primaryColor="#f3f3f3"
+			secondaryColor="#ecebeb"
+			{...props}
+		>
+			<circle cx="14" cy="28" r="11" />
+			<rect x="42" y="7" rx="2" ry="2" width="96" height="12" />
+			<rect x="42" y="31" rx="2" ry="2" width="192" height="16" />
+
+		</ContentLoader>
+	</Wrapper>
+)
 
 export default ListItem
