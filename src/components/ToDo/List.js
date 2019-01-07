@@ -30,15 +30,18 @@ const List = props => {
 	if(loading)return <EmptyState img='2'>loading...</EmptyState>
 	if(!list || !list.length) return <EmptyState>You don’t have any tasks yet</EmptyState>
 
+	const array = filterCompleted(filter, toArray(list))
+
 	return (
 		<Container {...props}>
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
 				<Select value={filter} onChange={setFilter} options={filterOptions}/>
 				<Select value={sortBy} onChange={setSortBy} options={sortOptions} icon='shuffle'/>
 			</div>
-			{filterCompleted(filter, toArray(list)).map((x, i) => (
-				<ListItem {...x} key={x.key} id={x.key} index={i}/>
-			))}
+			{(!array || !array.length)
+				? <EmptyState>You don’t have any {(filterOptions[filter] || '').toLowerCase()} tasks</EmptyState>
+				: array.map((x, i) => <ListItem {...x} key={x.key} id={x.key} index={i}/>)
+			}
 		</Container>
 	)
 }

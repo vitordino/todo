@@ -30,7 +30,7 @@ const EmptyState = ({img = 1, children, ...props}) => (
 			<Heading
 				size={3}
 				color={p => p.theme.colors.base44}
-				style={{fontWeight: 300, maxWidth: '24rem'}}>
+				style={{fontWeight: 300, maxWidth: '28rem'}}>
 				{children}
 			</Heading>
 		)}
