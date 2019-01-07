@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { keyframes, css } from 'styled-components'
 import { removeToDo, updateToDo } from '../../actions'
 import { useCurrentTime } from '../../contexts/CurentTime'
+import {priorityColors, getPriorityColor, priorityLabels, getPriorityText, getDueTimeColor} from '../../utils/item'
 import Feather from '../Feather'
 import RelativeTime from '../RelativeTime'
 import {Paragraph} from '../Text'
@@ -95,21 +96,6 @@ const Details = styled(Paragraph).attrs({
 })`
 	letter-spacing: 0.025rem;
 `
-
-const priorityColors = ['gold', 'coral', 'firebrick']
-const getPriorityColor = ({priority, completed, theme}) => {
-	if(completed) return theme.colors.base22
-	return priorityColors[priority] || '#141618'
-}
-
-const priorityLabels = ['Low', 'Medium', 'High']
-const getPriorityText = priority => `${(priorityLabels[priority] || 'No')} priority`
-
-const getDueTimeColor = ({completed, expired, theme}) => {
-	if(completed) return theme.colors.base22
-	if(expired) return 'red'
-	return theme.colors.base44
-}
 
 const ListItem = ({
 	created,

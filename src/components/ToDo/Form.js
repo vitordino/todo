@@ -3,6 +3,7 @@ import { addMinutes, format } from 'date-fns'
 import { useFormState } from 'react-use-form-state'
 import styled from 'styled-components'
 import { addToDo } from '../../actions'
+import {priorityColors, getPriorityColor, getPriorityText} from '../../utils/item'
 import { useAuthState } from '../../utils/firebase-hooks'
 import Container from '../Container'
 import Input from '../Input'
@@ -42,12 +43,16 @@ const getDateValue = timestamp => {
 	return isNaN(value) ? null : value
 }
 
+const priorityOptions = priorityColors.map((color, value) => ({
+	label: getPriorityText(value, false), value, color,
+}))
+
 const Form = () => {
 	const initialDueTime = useMemo(() => (
 		format(addMinutes(Date.now(), 15), `yyyy-MM-dd'T'HH:mm:ss`)
 	), [])
 
-	const initialState = {priority: 0, dueTime: initialDueTime}
+	const initialState = {priority: '0', dueTime: initialDueTime}
 	const [{values}, {text, date, radio}] = useFormState(initialState)
 	const { uid } = useAuthState()
 	return (
@@ -63,14 +68,10 @@ const Form = () => {
 					<div style={{flexGrow: 100, padding: '1rem 0'}}>
 						<Flex>
 							<RadioGroup
-								radio={radio}
-								name='priority'
+								radio={value => radio('priority', value)}
+								value={values.priority}
 								label='Priority'
-								options={[
-									{value: 0, label: 'low', color: 'gold', defaultChecked: true},
-									{value: 1, label: 'medium', color: 'coral'},
-									{value: 2, label: 'high', color: 'firebrick'},
-								]}
+								options={priorityOptions}
 								style={{marginRight: '3rem'}}
 							/>
 							<Input

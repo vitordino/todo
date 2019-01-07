@@ -43,23 +43,19 @@ const RadioLabel = styled.span`
 	}
 `
 
-const Radio = ({name, value, onChange, label, color, ...props}) => (
-	<Option to={name} {...props}>
-		<Field name={name} type='radio' value={value} onChange={onChange} />
+const Radio = ({label, color, ...props}) => (
+	<Option>
+		<Field {...props}/>
 		<RadioLabel color={color}>{label}</RadioLabel>
 	</Option>
 )
 
-const RadioGroup = ({name, label, options, radio, ...props}) => (
+const RadioGroup = ({label, options, radio, ...props}) => (
 	<Wrapper {...props}>
 		<Label>{label}</Label>
 		<Flex>
-			{options.map(({value, ...props}) => (
-				<Radio
-					name={name}
-					{...props}
-					{...radio(name, value)}
-				/>
+			{options.map(({value, ...option}) => (
+				<Radio {...option} {...radio(value.toString())} />
 			))}
 		</Flex>
 	</Wrapper>
