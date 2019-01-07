@@ -5,29 +5,23 @@ import { toArray } from '../../utils/firebase'
 import Container from '../Container'
 import Select from '../Select'
 
-const sortOptions = [
-	{value: 'key', label: 'Created'},
-	{value: 'dueTime', label: 'Due time'},
-	{value: 'priority', label: 'Priority'},
-]
+const sortOptions = {
+	'key': 'Created',
+	'dueTime': 'Due time',
+	'priority': 'Priority',
+}
 
-const filterOptions = [
-	{value: 'all', label: 'All'},
-	// very hacky approach to boolean coercion (input values has to be strings)
-	{value: '', label: 'Current'},
-	{value: ' ', label: 'Completed'},
-]
-
-const filterCompleted = (status, array) => {
-	if(status === 'all') return array
-	// eslint-disable-next-line eqeqeq
-	return array.filter(({completed}) => completed == !!status)
+const filterOptions = ['All', 'Current', 'Completed']
+const filterCompleted = (filter, array) => {
+	// handle filtering options (very hacky)
+	if(!+filter) return array
+	return array.filter(({completed}) => completed === !!(filter - 1))
 }
 
 const List = props => {
 	const { uid } = useAuthState()
 	const [sortBy, setSortBy] = useState('key')
-	const [filter, setFilter] = useState('all')
+	const [filter, setFilter] = useState(0)
 	const { error, loading, value: list } = useList(`todos/${uid}`, sortBy)
 
 	if(error) return <Container {...props}>error: {error.message}</Container>

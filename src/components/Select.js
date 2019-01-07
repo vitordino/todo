@@ -11,7 +11,7 @@ const Field = styled.select`
 const Select = ({options, ...props}) => (
 	<Wrapper {...props}>
 		<Field>
-			{options.map(({value, label}) => (
+			{Object.entries(options).map(([value, label]) => (
 				<option value={value}>{label}</option>
 			))}
 		</Field>
