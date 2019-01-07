@@ -13,30 +13,35 @@ import RadioGroup from '../RadioGroup'
 const Wrapper = styled.form`
 	display: block;
 	background: ${p => p.theme.colors.white};
-	margin-top: 2rem;
+	margin-top: 6rem;
 `
 
 const Flex = styled.div`
 	display: flex;
-	align-items: center;
+	align-items: ${p => p.align || 'center'};
+	justify-content: ${p => p.justify || 'flex-start'};
 	flex-wrap: wrap;
 `
 
 const Button = styled.button`
 	border: none;
 	display: flex;
+	position: absolute;
+	top: 0;
+	right: 0;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
+	border-radius: 50%;
 	padding: 2rem;
-	flex-grow: 1;
-	background: ${p => p.theme.colors.base06};
-	color: ${p => p.theme.colors.base22};
+	background: ${p => p.theme.colors.base11};
+	color: ${p => p.theme.colors.base44};
 	cursor: pointer;
 	&:hover, &:focus, &:active {
 		background: ${p => p.theme.colors.base88};
 		color: ${p => p.theme.colors.white};
 	}
+	transform: translateY(-50%);
 `
 const getDateValue = timestamp => {
 	const value = new Date(timestamp).valueOf()
@@ -64,7 +69,7 @@ const Form = () => {
 			}}
 		>
 			<Container>
-				<Flex style={{alignItems: 'stretch', justifyContent: 'space-between'}}>
+				<Flex align='stretch' justify='space-between' style={{position: 'relative'}}>
 					<div style={{flexGrow: 100, padding: '1rem 0'}}>
 						<Flex>
 							<RadioGroup

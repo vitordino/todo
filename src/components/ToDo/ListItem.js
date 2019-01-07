@@ -55,6 +55,7 @@ const CompleteButton = styled.button`
 
 const Main = styled.div`
 	flex: 1;
+	word-break: break-all;
 `
 
 const Top = styled.div`
