@@ -1,10 +1,9 @@
-import React from 'react'
-import {distanceInWords} from 'date-fns'
+import {formatDistance} from 'date-fns'
 import {useCurrentTime} from '../contexts/CurentTime'
 
 const RelativeTime = ({ time }) => {
 	const currentTime = useCurrentTime()
-	return distanceInWords(time, new Date(currentTime))
+	return formatDistance(new Date(time), new Date(currentTime), { addSuffix: true })
 }
 
 export default RelativeTime
