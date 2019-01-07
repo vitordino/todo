@@ -1,10 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { format } from 'date-fns'
 
 const Wrapper = styled.label`
 	display: block;
 	margin: 0.75rem 0;
 	border-bottom: ${p => !p.small && `1px solid ${p.theme.colors.base11}`};
+	position: relative;
 `
 
 const Label = styled.div`
@@ -31,31 +33,40 @@ const Field = styled.input`
 	&::placeholder{
 		color: ${p => p.theme.colors.base22};
 	}
+	${p => p.small && `@media (pointer:coarse) {
+		font-size: 1rem;
+		position: absolute;
+		width: 100%;
+		top: 0;
+		bottom: 0;
+		opacity: 0;
+	}`}
 `
 
-const Input = ({
-	name,
-	label,
-	value,
-	onChange,
-	type,
-	required,
-	placeholder,
-	small,
-	...props,
-}) => (
-	<Wrapper to={name} HTMLfor={name} small={small} {...props}>
+const formatValue = ({type, value}) => {
+	if(type === 'datetime-local') {
+		return format(value, `dd/MM/yyyy — HH:mm`)
+	}
+	return value
+}
+
+const Value = styled.div`
+	display: none;
+	@media (pointer:coarse) {
+		display: block;
+		font-size: 0.875rem;
+		line-height: 1rem;
+		color: ${p => p.theme.colors.base66};
+		font-weight: 500;
+		padding: 0.375rem 0;
+	}
+`
+
+const Input = ({label, small, style, className, ...props}) => (
+	<Wrapper small={small} style={style} className={className}>
 		<Label>{label}</Label>
-		<Field
-			name={name}
-			id={name}
-			type={type}
-			value={value}
-			onChange={onChange}
-			required={required}
-			placeholder={placeholder}
-			small={small}
-		/>
+		<Field small={small} {...props}/>
+		{small && <Value>{formatValue(props)}</Value>}
 	</Wrapper>
 )
 

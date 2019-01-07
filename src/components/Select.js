@@ -19,6 +19,7 @@ const Field = styled.select`
 	right: 0;
 	width: 100%;
 	display: block;
+	font-size: 1rem;
 	opacity: 0;
 `
 
