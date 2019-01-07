@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export const useInputState = initialState => {
 	const [state, setState] = useState(initialState)

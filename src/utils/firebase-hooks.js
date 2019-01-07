@@ -15,7 +15,7 @@ export const useAuthState = () => {
 			error => setState({error, user: null, loading: false}),
 	), [])
 
-	return { ...(user ? user.toJSON() : {}), loading }
+	return { ...(user ? user.toJSON() : {}), loading, error }
 }
 
 export const useList = (path, orderBy = 'key') => (
