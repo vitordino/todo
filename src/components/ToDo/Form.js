@@ -40,7 +40,7 @@ const Button = styled.button`
 
 const Form = () => {
 	const initialDueTime = useMemo(() => (
-		format(addMinutes(Date.now(), 15), ['YYYY-MM-DDTHH:mm:ss'])
+		format(addMinutes(Date.now(), 15), `yyyy-MM-dd'T'HH:mm:ss`)
 	), [])
 
 	const initialState = {priority: 0, dueTime: initialDueTime}
