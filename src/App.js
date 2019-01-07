@@ -1,12 +1,15 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { ThemeProvider} from 'styled-components'
+import nest from './utils/nest'
 import { useAuthState } from './utils/firebase-hooks'
 import { Provider as CurrentTimeProvider } from './contexts/CurentTime'
+import { Provider as ErrorProvider } from './contexts/Error'
 import Layout from './components/Layout'
-import Navbar from './components/Navbar'
-import EmptyState from './components/EmptyState'
+import GlobalStyle from './components/GlobalStyle'
 import ToDo from './components/ToDo'
 import SignIn from './components/SignIn'
+
 
 const AuthRedirects = withRouter(({location}) => {
 	const { uid } = useAuthState()
@@ -15,29 +18,25 @@ const AuthRedirects = withRouter(({location}) => {
 	return null
 })
 
-const App = () => {
-	const { loading } = useAuthState()
-	if(loading) {
-		return (
-			<Layout>
-				<Navbar/>
-				<EmptyState img='2'>loading...</EmptyState>
-			</Layout>
-		)
-	}
-	return (
-		<CurrentTimeProvider>
-			<BrowserRouter>
-				<Layout>
-					<AuthRedirects/>
-					<Switch>
-						<Route exact path='/login' component={SignIn}/>
-						<Route exact path='/' component={ToDo}/>
-					</Switch>
-				</Layout>
-			</BrowserRouter>
-		</CurrentTimeProvider>
-	)
-}
+const App = () => (
+	<Fragment>
+		<GlobalStyle/>
+		<Layout>
+			<Switch>
+				<Route exact path='/login' component={SignIn}/>
+				<Route exact path='/' component={ToDo}/>
+			</Switch>
+		</Layout>
+	</Fragment>
+)
 
-export default App
+
+const enhance = nest(
+	ErrorProvider,
+	CurrentTimeProvider,
+	BrowserRouter,
+	ThemeProvider,
+)
+
+
+export default enhance(App)

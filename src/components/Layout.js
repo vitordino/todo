@@ -1,31 +1,9 @@
-import React, { Fragment } from 'react'
-import reset from 'minireset.css'
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
-import theme from '../theme'
-
-const GlobalStyle = createGlobalStyle`
-	${reset}
-	html, body {
-		font-family: ${theme.fonts.ibm};
-		background: ${theme.colors.base03};
-		text-rendering: optimizeLegibility;
-		font-smooth: antialised;
-		font-smoothing: antialised;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'pnum' 0, 'tnum' 1, 'onum' 0, 'lnum' 1, 'dlig' 1, 'zero' 1, 'case' 1;
-		height: 100%;
-	}
-	::selection{
-		color: ${theme.colors.base03};
-		background: ${theme.colors.base66};
-	}
-	#root{
-		min-height: 100%;
-		display: flex;
-		flex-direction: column;
-	}
-`
+import React, { Fragment, useContext} from 'react'
+import styled from 'styled-components'
+import { useAuthState } from '../utils/firebase-hooks'
+import ErrorContext from '../contexts/Error'
+import Navbar from './Navbar'
+import EmptyState from './EmptyState'
 
 const Content = styled.div`
 	flex: 1;
@@ -34,13 +12,33 @@ const Content = styled.div`
 	min-height: 100%
 `
 
-const Layout = props => (
-	<ThemeProvider theme={theme}>
+const NotApp = ({loading, error, children}) => {
+	if(loading) return <EmptyState img='2'>loading...</EmptyState>
+	if(error){
+		return (
+			<EmptyState img='3'>
+				<strong>ERROR:</strong><br/>
+				<code>{error.message || error}</code>
+			</EmptyState>
+		)
+	}
+	return children
+}
+
+const Layout = ({children}) => {
+	const { loading, authError } = useAuthState()
+	const error = useContext(ErrorContext)
+
+	return (
 		<Fragment>
-			<GlobalStyle/>
-			<Content {...props}/>
+			<Navbar/>
+			<Content>
+				<NotApp loading={loading} error={authError || error}>
+					{children}
+				</NotApp>
+			</Content>
 		</Fragment>
-	</ThemeProvider>
-)
+	)
+}
 
 export default Layout

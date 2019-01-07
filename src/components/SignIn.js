@@ -1,13 +1,10 @@
 import React from 'react'
-import { signIn } from '../actions'
-import Navbar from './Navbar'
+import { useAuthActions } from '../utils/firebase-hooks'
 import EmptyState from './EmptyState'
 
-const SignIn = ({...props}) => (
-	<div style={{flex: 1}}>
-		<Navbar signIn={signIn}/>
-		<EmptyState img='4' onClick={signIn}>Sign In to start</EmptyState>
-	</div>
-)
+const SignIn = ({...props}) => {
+	const { signIn, signOut } = useAuthActions()
+	return <EmptyState img='4' onClick={signIn}>Sign In to start</EmptyState>
+}
 
 export default SignIn

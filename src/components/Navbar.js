@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
+import { useAuthState, useAuthActions } from '../utils/firebase-hooks'
 import { Paragraph } from './Text'
 import Container from './Container'
 import Feather from './Feather'
 
 const Wrapper = styled.div`
 	background: ${p => p.theme.colors.white};
-	margin-bottom: 2rem;
 	top: 0;
 	position: sticky;
 	z-index: 2;
@@ -35,24 +35,31 @@ const Button = styled.button`
 	}
 `
 
-const Navbar = ({signIn, signOut}) => (
-	<Wrapper>
-		<Container>
-			<Flex>
-				<Paragraph size={2} uppercase weight={600}>To — Do</Paragraph>
-				{(signIn || signOut) && (
-					<Button onClick={signIn || signOut}>
-						<Feather
-							size={18}
-							strokeWidth={2.375}
-							icon={signIn ? 'log-in' : 'log-out'}
-							style={{display: 'block'}}
-						/>
-					</Button>
-				)}
-			</Flex>
-		</Container>
-	</Wrapper>
-)
+const Navbar = () => {
+	const { uid, loading } = useAuthState()
+	const { signIn, signOut } = useAuthActions()
+
+	return (
+		<Wrapper>
+			<Container>
+				<Flex>
+					<Paragraph size={2} uppercase weight={600} style={{padding: '0.875rem'}}>
+						To — Do
+					</Paragraph>
+					{!loading && (
+						<Button onClick={uid ? signOut : signIn}>
+							<Feather
+								size={18}
+								strokeWidth={2.375}
+								icon={uid ? 'log-out' : 'log-in'}
+								style={{display: 'block'}}
+							/>
+						</Button>
+					)}
+				</Flex>
+			</Container>
+		</Wrapper>
+	)
+}
 
 export default Navbar

@@ -9,6 +9,7 @@ const Wrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	padding: 2rem 1rem;
+	cursor: ${p => p.onClick ? 'pointer' : 'default'};
 `
 
 const Image = styled.img`

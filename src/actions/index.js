@@ -16,22 +16,5 @@ export const updateToDo = (toDoId, diff) => {
 	return todosRef.child(uid).child(toDoId).update(diff)
 }
 
-export const signIn = () => {
-	firebase.auth()
-		.signInWithPopup(provider)
-		.then(result => {})
-		.catch(error => {
-			console.log(error)
-		})
-}
-
-export const signOut = () => {
-	firebase.auth()
-		.signOut()
-		.then(() => {
-			// Sign-out successful.
-		})
-		.catch(error => {
-			console.log(error)
-		})
-}
+export const signIn = () => firebase.auth().signInWithPopup(provider)
+export const signOut = () => firebase.auth().signOut()
