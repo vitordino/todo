@@ -37,6 +37,10 @@ const Button = styled.button`
 		color: ${p => p.theme.colors.white};
 	}
 `
+const getDateValue = timestamp => {
+	const value = new Date(timestamp).valueOf()
+	return isNaN(value) ? null : value
+}
 
 const Form = () => {
 	const initialDueTime = useMemo(() => (
@@ -44,13 +48,14 @@ const Form = () => {
 	), [])
 
 	const initialState = {priority: 0, dueTime: initialDueTime}
-	const [formState, {text, date, radio}] = useFormState(initialState)
+	const [{values}, {text, date, radio}] = useFormState(initialState)
 	const { uid } = useAuthState()
 	return (
 		<Wrapper
 			onSubmit={e => {
 				e.preventDefault()
-				addToDo(formState.values, uid)
+				const data = {...values, dueTime: getDateValue(values.dueTime)}
+				addToDo(data, uid)
 			}}
 		>
 			<Container>
