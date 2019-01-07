@@ -2,7 +2,7 @@ import firebase, { todosRef, provider } from '../utils/firebase'
 
 export const addToDo = (data) => {
 	const {uid} = (firebase.auth().currentUser || {})
-	const created = new Date().toISOString()
+	const created = new Date().valueOf()
 	return todosRef.child(uid).push({...data, created})
 }
 
