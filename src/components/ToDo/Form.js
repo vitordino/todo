@@ -58,7 +58,7 @@ const Form = () => {
 		format(addMinutes(Date.now(), 15), `yyyy-MM-dd'T'HH:mm:ss`)
 	), [])
 
-	const initialState = {priority: '0', dueTime: initialDueTime}
+	const initialState = {priority: '1', dueTime: initialDueTime}
 	const [{values}, {text, date, radio}] = useFormState(initialState)
 	const { uid } = useAuthState()
 	return (

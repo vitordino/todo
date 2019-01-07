@@ -28,7 +28,7 @@ const Label = styled.div`
 	font-size: 0.875rem;
 	font-weight: 600;
 	letter-spacing: 0.025rem;
-	margin-right: 0.25rem;
+	margin-right: 0.125rem;
 `
 
 const Select = ({options, icon = 'chevron-down', value, ...props}) => (
@@ -39,9 +39,7 @@ const Select = ({options, icon = 'chevron-down', value, ...props}) => (
 			))}
 		</Field>
 		<Label>{options[value]}</Label>
-		{icon && (
-			<Feather size={20} icon={icon}/>
-		)}
+		{icon && <Feather strokeWidth={2.25} size={20} icon={icon}/>}
 	</Wrapper>
 )
 
