@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route, Redirect, withRouter } from 'react-router
 import { useAuthState } from './utils/firebase-hooks'
 import { Provider as CurrentTimeProvider } from './contexts/CurentTime'
 import Layout from './components/Layout'
+import Navbar from './components/Navbar'
+import EmptyState from './components/EmptyState'
 import ToDo from './components/ToDo'
 import SignIn from './components/SignIn'
 
@@ -15,7 +17,14 @@ const AuthRedirects = withRouter(({location}) => {
 
 const App = () => {
 	const { loading } = useAuthState()
-	if(loading) return 'loading...'
+	if(loading) {
+		return (
+			<Layout>
+				<Navbar/>
+				<EmptyState img='2'>loading...</EmptyState>
+			</Layout>
+		)
+	}
 	return (
 		<CurrentTimeProvider>
 			<BrowserRouter>

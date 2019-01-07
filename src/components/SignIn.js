@@ -1,11 +1,12 @@
 import React from 'react'
 import { signIn } from '../actions'
 import Navbar from './Navbar'
+import EmptyState from './EmptyState'
 
 const SignIn = ({...props}) => (
 	<div style={{flex: 1}}>
 		<Navbar signIn={signIn}/>
-		<h4 id='sign-in-header'>Sign In to start</h4>
+		<EmptyState img='4' onClick={signIn}>Sign In to start</EmptyState>
 	</div>
 )
 

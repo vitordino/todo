@@ -3,6 +3,7 @@ import ListItem from './ListItem'
 import { useAuthState, useList } from '../../utils/firebase-hooks'
 import { useInputState } from '../../utils/hooks'
 import { toArray } from '../../utils/firebase'
+import EmptyState from '../EmptyState'
 import Container from '../Container'
 import Select from '../Select'
 
@@ -25,9 +26,9 @@ const List = props => {
 	const [filter, setFilter] = useInputState(0)
 	const { error, loading, value: list } = useList(`todos/${uid}`, sortBy)
 
-	if(error) return <Container {...props}>error: {error.message}</Container>
-	if(loading) return <Container {...props}>loading...</Container>
-	if(!list || !list.length) return <Container {...props}>You don’t have any tasks yet'</Container>
+	if(error) return <EmptyState img='3'>error: {error.message}</EmptyState>
+	if(loading)return <EmptyState img='2'>loading...</EmptyState>
+	if(!list || !list.length) return <EmptyState>You don’t have any tasks yet</EmptyState>
 
 	return (
 		<Container {...props}>
