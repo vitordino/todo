@@ -31,7 +31,7 @@ const Label = styled.div`
 	margin-right: 0.125rem;
 `
 
-const Select = ({options, icon = 'chevron-down', value, ...props}) => (
+const Select = ({options = [], icon = 'chevron-down', value, ...props}) => (
 	<Wrapper {...props}>
 		<Field>
 			{Object.entries(options).map(([value, label]) => (
