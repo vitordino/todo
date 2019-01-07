@@ -74,34 +74,22 @@ const DeleteButton = styled.button`
 	}
 `
 
-const Details = props => (
-	<Paragraph
-		uppercase
-		size={0}
-		weight={600}
-		color={p => p.theme.colors.base44}
-		style={{letterSpacing: '0.025rem'}}
-		{...props}
-	/>
-)
+const Details = styled(Paragraph).attrs({
+	uppercase: true,
+	size: 0,
+	weight: 600,
+})`
+	letter-spacing: 0.025rem;
+`
 
-const getPriorityColor = (priority) => {
-	/* eslint-disable eqeqeq */
-	if(priority == 0) return 'gold'
-	if(priority == 1) return 'coral'
-	if(priority == 2) return 'firebrick'
-	/* eslint-enable eqeqeq */
-	return '#141618'
+const priorityColors = ['gold', 'coral', 'firebrick']
+const getPriorityColor = ({priority, completed, theme}) => {
+	if(completed) return theme.colors.base22
+	return priorityColors[priority] || '#141618'
 }
 
-const getPriorityText = priority => {
-	/* eslint-disable eqeqeq */
-	if(priority == 0) return 'Low priority'
-	if(priority == 1) return 'Medium priority'
-	if(priority == 2) return 'High priority'
-	/* eslint-enable eqeqeq */
-	return 'No priority'
-}
+const priorityLabels = ['Low', 'Medium', 'High']
+const getPriorityText = priority => `${(priorityLabels[priority] || 'No')} priority`
 
 const ListItem = ({
 	created,
@@ -116,16 +104,16 @@ const ListItem = ({
 		<IconWrapper
 			completed={completed}
 			onClick={() => updateToDo(id, {completed: !completed})}
-		>
+			>
 			<Feather icon={completed ? 'check-circle' : 'circle'}/>
 		</IconWrapper>
 		<Main>
 			<Top>
-				<Details color={p => completed ? p.theme.colors.base22 : getPriorityColor(priority)}>
+				<Details color={getPriorityColor} priority={priority} completed={completed}>
 					{getPriorityText(priority)}
 				</Details>
 				<Details color={p => completed ? p.theme.colors.base22 : p.theme.colors.base44}>
-					<RelativeTime time={dueTime} />
+					<RelativeTime time={dueTime}/>
 				</Details>
 			</Top>
 			<Paragraph color={p => completed ? p.theme.colors.base44 : p.theme.colors.base88}>
@@ -139,6 +127,5 @@ const ListItem = ({
 		</div>
 	</Wrapper>
 )
-
 
 export default ListItem
