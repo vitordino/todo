@@ -1,0 +1,10 @@
+language: node_js
+cache: npm
+node_js: "8"
+script: echo "Deploy!!"
+install:
+  - npm i -g firebase-tools
+  - npm i
+after_success:
+  - npm run deploy
+  - firebase deploy - project chama-challenge - token $FIREBASE_TOKEN.
