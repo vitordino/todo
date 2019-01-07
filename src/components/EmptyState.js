@@ -17,7 +17,8 @@ const Image = styled.img`
 	mix-blend-mode: multiply;
 	max-width: 20rem;
 	user-select: none;
-	draggable: none;
+	draggable: false;
+	pointer-events: none;
 `
 
 // all image credits go to Noah Jacobus for MetaLab
@@ -25,7 +26,7 @@ const Image = styled.img`
 
 const EmptyState = ({img = 1, children, ...props}) => (
 	<Wrapper {...props}>
-		{img && <Image draggable='none' src={`/assets/images/empty${img}.png`}/>}
+		{img && <Image draggable='false' src={`/assets/images/empty${img}.png`}/>}
 		{children && (
 			<Heading
 				size={3}
