@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { removeToDo, updateToDo } from '../../actions'
 import Feather from '../Feather'
+import RelativeTime from '../RelativeTime'
 import {Paragraph} from '../Text'
 
 const Wrapper = styled.div`
@@ -124,7 +125,7 @@ const ListItem = ({
 					{getPriorityText(priority)}
 				</Details>
 				<Details color={p => completed ? p.theme.colors.base22 : p.theme.colors.base44}>
-					{dueTime}
+					<RelativeTime time={dueTime} />
 				</Details>
 			</Top>
 			<Paragraph color={p => completed ? p.theme.colors.base44 : p.theme.colors.base88}>
