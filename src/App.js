@@ -20,6 +20,7 @@ const AuthRedirects = withRouter(({location}) => {
 
 const App = () => (
 	<Fragment>
+		<AuthRedirects/>
 		<GlobalStyle/>
 		<Layout>
 			<Switch>
