@@ -24,12 +24,18 @@ const Flex = styled.div`
 `
 
 const Field = styled.input`
-	display: none;
+	opacity: 0;
+	position: absolute;
 `
 
 const Option = styled.label`
 	padding: 0.375rem 0.5rem;
 	cursor: pointer;
+	border-radius: 5rem;
+	position: relative;
+	&:focus-within{
+		box-shadow: 0 0 0 2px dodgerblue;
+	}
 `
 
 const RadioLabel = styled.span`
@@ -51,7 +57,7 @@ const Radio = ({label, color, ...props}) => (
 )
 
 const RadioGroup = ({label, options, radio, ...props}) => (
-	<Wrapper {...props}>
+	<Wrapper 		{...props}>
 		<Label>{label}</Label>
 		<Flex>
 			{options.map(({value, ...option}) => (

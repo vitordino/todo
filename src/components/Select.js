@@ -8,8 +8,12 @@ const Wrapper = styled.label`
 	position: relative;
 	padding: 0.5rem;
 	color: ${p => p.theme.colors.base44};
+	border-radius: 0.25rem;
 	&:hover{
 		color: ${p => p.theme.colors.base66};
+	}
+	&:focus-within{
+		box-shadow: 0 0 0 2px dodgerblue;
 	}
 `
 const Field = styled.select`

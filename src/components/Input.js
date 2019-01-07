@@ -7,6 +7,9 @@ const Wrapper = styled.label`
 	margin: 0.75rem 0;
 	border-bottom: ${p => !p.small && `1px solid ${p.theme.colors.base11}`};
 	position: relative;
+	&:focus-within{
+		border-color: ${p => p.theme.colors.base22};
+	}
 `
 
 const Label = styled.div`
@@ -16,7 +19,7 @@ const Label = styled.div`
 	text-transform: uppercase;
 	font-weight: 600;
 	letter-spacing: 0.025rem;
-	color: ${p => p.theme.colors.base44};
+	color: ${p => p.theme.colors.base66};
 `
 
 const Field = styled.input`
