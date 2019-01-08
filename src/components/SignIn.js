@@ -1,10 +1,15 @@
 import React from 'react'
 import { useAuthActions } from '../utils/firebase-hooks'
+import { withAlert } from 'react-alert'
 import EmptyState from './EmptyState'
 
-const SignIn = ({...props}) => {
+const SignIn = ({alert, ...props}) => {
 	const { signIn } = useAuthActions()
-	return <EmptyState img='4' onClick={signIn}>Sign In to start</EmptyState>
+	const signInAction = (...args) => {
+		signIn(...args).then(() => alert.show('✨  welcome home'))
+	}
+
+	return <EmptyState img='4' onClick={signInAction}>Sign In to start</EmptyState>
 }
 
-export default SignIn
+export default withAlert(SignIn)

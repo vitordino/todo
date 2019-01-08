@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { withAlert } from 'react-alert'
 import { useAuthState, useAuthActions } from '../utils/firebase-hooks'
 import { Paragraph } from './Text'
 import Container from './Container'
@@ -43,19 +44,26 @@ const ButtonText = styled.div`
 	margin: 0 0.375rem;
 `
 
-const Navbar = () => {
+const Navbar = ({alert, ...props}) => {
 	const { uid, loading } = useAuthState()
 	const { signIn, signOut } = useAuthActions()
 
+	const signInAction = (...args) => {
+		signIn(...args).then(() => alert.show('✨  welcome home'))
+	}
+	const signOutAction = (...args) => {
+		signOut(...args).then(() => alert.show('👋  see you later'))
+	}
+
 	return (
-		<Wrapper>
+		<Wrapper {...props}>
 			<Container>
 				<Flex>
 					<Paragraph size={2} uppercase weight={600} style={{padding: '0.875rem'}}>
 						To — Do
 					</Paragraph>
 					{!loading && (
-						<Button onClick={uid ? signOut : signIn}>
+						<Button onClick={uid ? signOutAction : signInAction}>
 							<ButtonText>{uid ? 'Log out' : 'Log in'}</ButtonText>
 							<Feather
 								size={18}
@@ -71,4 +79,4 @@ const Navbar = () => {
 	)
 }
 
-export default Navbar
+export default withAlert(Navbar)
