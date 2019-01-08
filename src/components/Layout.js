@@ -35,7 +35,7 @@ const Layout = ({children}) => {
 		<AlertProvider
 			template={Alert}
 			offset='16px'
-			timeout={5000000}
+			timeout={3000}
 			position='bottom right'
 			zIndex={100}
 		>
