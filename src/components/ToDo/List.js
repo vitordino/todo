@@ -11,7 +11,7 @@ const sortOptions = {key: 'Created', dueTime: 'Due time', priority: 'Priority'}
 const filterOptions = ['All', 'Current', 'Completed']
 const getFilteredList = (filter, snapshot) => {
 	if(!filter) return toArray(snapshot)
-	return toArray(snapshot).filter(({completed}) => completed|0 === filter - 1)
+	return toArray(snapshot).filter(({completed}) => completed === !!(filter - 1))
 }
 
 /* eslint-disable no-mixed-operators */
