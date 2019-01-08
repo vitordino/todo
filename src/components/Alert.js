@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import Feather from './Feather'
 import {Paragraph} from './Text'
@@ -36,14 +36,17 @@ const CloseWrapper = styled.div`
 
 const Icon = props => <Feather size={20} strokeWidth={1.75} {...props}/>
 
-const Alert = ({message, options: {type}, close, style}) => (
-	<Wrapper type={type} style={style}>
-		{type === 'error' && <Icon icon='alert-circle' />}
-		<Message>{message}</Message>
-		<CloseWrapper role='button' onClick={close}>
-			<Feather size={18} icon='x' />
-		</CloseWrapper>
-	</Wrapper>
-)
+const Alert = ({message, options: {type}, close, style}) => {
+	useEffect(() => new Audio('/assets/sounds/pop.m4a').play(), [])
+	return (
+		<Wrapper type={type} style={style}>
+			{type === 'error' && <Icon icon='alert-circle' />}
+			<Message>{message}</Message>
+			<CloseWrapper role='button' onClick={close}>
+				<Feather size={18} icon='x' />
+			</CloseWrapper>
+		</Wrapper>
+	)
+}
 
 export default Alert
