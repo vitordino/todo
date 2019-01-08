@@ -1,7 +1,9 @@
-import React, { Fragment, useContext} from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { Provider as AlertProvider } from 'react-alert'
 import { useAuthState } from '../utils/firebase-hooks'
 import ErrorContext from '../contexts/Error'
+import Alert from './Alert'
 import Navbar from './Navbar'
 import EmptyState from './EmptyState'
 
@@ -30,14 +32,20 @@ const Layout = ({children}) => {
 	const error = useContext(ErrorContext)
 
 	return (
-		<Fragment>
+		<AlertProvider
+			template={Alert}
+			offset='16px'
+			timeout={5000000}
+			position='bottom right'
+			zIndex={100}
+		>
 			<Navbar/>
 			<Content>
 				<NotApp loading={loading} error={error}>
 					{children}
 				</NotApp>
 			</Content>
-		</Fragment>
+		</AlertProvider>
 	)
 }
 
