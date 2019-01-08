@@ -6,13 +6,12 @@ import {getPriorityColor, getPriorityText, getDueTimeColor} from '../../utils/it
 import ContentLoader from '../ContentLoader'
 import Feather from '../Feather'
 import RelativeTime from '../RelativeTime'
-import {Paragraph} from '../Text'
+import { Paragraph } from '../Text'
 
 const Wrapper = styled.div`
 	display: flex;
 	align-items: stretch;
 	position: relative;
-	padding: 0.5rem 0.75rem;
 	margin: 1rem 0;
 	background: ${p => !p.completed && p.theme.colors.white};
 	border-radius: 0.25rem;
@@ -21,7 +20,7 @@ const Wrapper = styled.div`
 const CompleteButton = styled.button`
 	border: none;
 	background: transparent;
-	margin: -0.375rem 0.125rem -0.375rem -0.625rem;
+	margin: 0.125rem;
 	padding: 0.75rem;
 	display: flex;
 	align-items: center;
@@ -42,6 +41,7 @@ const CompleteButton = styled.button`
 const Main = styled.div`
 	flex: 1;
 	word-break: break-all;
+	padding: 0.5rem 0.75rem 0.5rem 0;
 `
 
 const Top = styled.div`
@@ -70,11 +70,14 @@ const DeleteButton = styled.button`
 	${Wrapper}:hover &, ${Wrapper}:focus &, ${Wrapper}:active &, &:focus, &:active {
 		opacity: 1;
 	}
+	@media (pointer:coarse) {
+		position: relative;
+		opacity: 1;
+	}
 	&:hover, &:focus, &:active {
 		z-index: 1;
 		background: crimson;
 		color: ${p => p.theme.colors.white};
-		box-shadow: none;
 	}
 `
 
@@ -154,7 +157,7 @@ const ListItem = ({
 }
 
 export const LoadingItem = props => (
-	<Wrapper {...props}>
+	<Wrapper {...props} style={{padding: '0.5rem 0.75rem'}}>
 		<ContentLoader
 			height={56}
 			speed={2}
