@@ -193,13 +193,13 @@ export const LoadingItem = props => (
 		<ContentLoader
 			height={52}
 			speed={2}
-			primaryColor="#f3f3f3"
-			secondaryColor="#ecebeb"
+			primaryColor='#f3f3f3'
+			secondaryColor='#ecebeb'
 			{...props}
 		>
-			<circle cx="14" cy="26" r="11"/>
-			<rect x="42" y="5" rx="2" ry="2" width="96" height="12"/>
-			<rect x="42" y="29" rx="2" ry="2" width="192" height="16"/>
+			<circle cx='14' cy='26' r='11'/>
+			<rect x='42' y='5' rx='2' ry='2' width='96' height='12'/>
+			<rect x='42' y='29' rx='2' ry='2' width='192' height='16'/>
 		</ContentLoader>
 	</Wrapper>
 )

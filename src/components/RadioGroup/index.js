@@ -57,11 +57,11 @@ const Radio = ({label, color, ...props}) => (
 )
 
 const RadioGroup = ({label, options, radio, ...props}) => (
-	<Wrapper 		{...props}>
+	<Wrapper {...props}>
 		<Label>{label}</Label>
 		<Flex>
 			{options.map(({value, ...option}) => (
-				<Radio {...option} {...radio(value.toString())} />
+				<Radio key={value} {...option} {...radio(value.toString())} />
 			))}
 		</Flex>
 	</Wrapper>

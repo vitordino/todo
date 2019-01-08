@@ -1,4 +1,3 @@
-
 export const priorityColors = ['gold', 'coral', 'firebrick']
 export const getPriorityColor = ({priority, completed = false, theme}) => {
 	if(completed) return theme.colors.base22

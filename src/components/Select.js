@@ -39,7 +39,7 @@ const Select = ({options = [], icon = 'chevron-down', value, ...props}) => (
 	<Wrapper {...props}>
 		<Field>
 			{Object.entries(options).map(([value, label]) => (
-				<option value={value}>{label}</option>
+				<option key={value} value={value}>{label}</option>
 			))}
 		</Field>
 		<Label>{options[value]}</Label>
