@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { addMinutes, format } from 'date-fns'
+import { addMinutes, addYears, format } from 'date-fns'
 import { useFormState } from 'react-use-form-state'
 import styled from 'styled-components'
 import { addToDo } from '../../actions'
@@ -58,6 +58,10 @@ const Form = () => {
 		format(addMinutes(Date.now(), 15), `yyyy-MM-dd'T'HH:mm:ss`)
 	), [])
 
+	const maxDueTime = useMemo(() => (
+		format(addYears(Date.now(), 5), `yyyy-MM-dd'T'HH:mm:ss`)
+	), [])
+
 	const initialState = {priority: '1', dueTime: initialDueTime}
 	const [{values}, {text, date, radio}] = useFormState(initialState)
 	const { uid } = useAuthState()
@@ -84,7 +88,8 @@ const Form = () => {
 								label='Due time'
 								required
 								small
-								min={initialDueTime}
+								min={addMinutes(initialDueTime, -15)}
+								max={maxDueTime}
 								{...date('dueTime')}
 								type='datetime-local'
 								style={{marginRight: '3rem'}}
