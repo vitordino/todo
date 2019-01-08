@@ -49,6 +49,7 @@ const Top = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
 `
 
 const DeleteButton = styled.button`
@@ -61,9 +62,14 @@ const DeleteButton = styled.button`
 	align-items: center;
 	justify-content: center;
 	position: absolute;
-	top: 0;
-	right: 0;
-	height: 100%;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	${p => p.expired && `
+		top: 2px;
+		right: 2px;
+		bottom: 2px;
+	`}
 	padding: 1rem;
 	transition: 0.2s opacity;
 	opacity: 0;
@@ -74,6 +80,10 @@ const DeleteButton = styled.button`
 	@media (pointer:coarse) {
 		position: relative;
 		opacity: 1;
+		height: 100%;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
 	}
 	&:hover, &:focus, &:active {
 		z-index: 1;
@@ -169,7 +179,7 @@ const ListItem = ({
 				</Paragraph>
 			</Main>
 			<div>
-				<DeleteButton completed={completed} onClick={() => removeToDo(id)}>
+				<DeleteButton expired={expired} completed={completed} onClick={() => removeToDo(id)}>
 					<Feather icon='delete'/>
 				</DeleteButton>
 			</div>
