@@ -43,6 +43,13 @@ const Button = styled.button`
 		color: ${p => p.theme.colors.white};
 	}
 	transform: translateY(-50%);
+	${Wrapper}:valid &{
+		background: ${p => p.theme.colors.base88};
+		color: ${p => p.theme.colors.white};
+		&:hover, &:focus, &:active {
+			background: dodgerblue;
+		}
+	}
 `
 const getDateValue = timestamp => {
 	const value = new Date(timestamp).valueOf()
