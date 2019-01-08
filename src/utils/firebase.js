@@ -21,13 +21,16 @@ export const todosRef = firebase.database().ref('todos')
 export const provider = new firebase.auth.GoogleAuthProvider()
 
 
-// https://ilikekillnerds.com/2017/05/convert-firebase-database-snapshotcollection-array-javascript/
 export const toArray = snapshot => {
-  var returnArr = []
-  snapshot.forEach(function(childSnapshot) {
-    var item = childSnapshot.val()
-    item.key = childSnapshot.key
-    returnArr.push(item)
-  })
-  return returnArr
+	const array = []
+	try{
+		snapshot.forEach(child => {
+			const value = child && child.val && child.val()
+			if(typeof value !== 'object') return array.push({key: child.key, value})
+			return array.push({...value, key: child.key})
+		})
+	}catch(e){
+		// if argument isn't a snapshot, return an empty array
+	}
+	return array
 }

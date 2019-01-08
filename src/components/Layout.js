@@ -26,14 +26,14 @@ const NotApp = ({loading, error, children}) => {
 }
 
 const Layout = ({children}) => {
-	const { loading, authError } = useAuthState()
+	const { loading } = useAuthState()
 	const error = useContext(ErrorContext)
 
 	return (
 		<Fragment>
 			<Navbar/>
 			<Content>
-				<NotApp loading={loading} error={authError || error}>
+				<NotApp loading={loading} error={error}>
 					{children}
 				</NotApp>
 			</Content>

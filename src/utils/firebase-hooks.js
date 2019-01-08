@@ -15,12 +15,17 @@ export const useAuthState = () => {
 			error => setState({error, user: null, loading: false}),
 	), [])
 
-	return { ...(user ? user.toJSON() : {}), loading, error }
+	if (error) throw error
+	return { ...(user ? user.toJSON() : {}), loading }
 }
 
-export const useList = (path, orderBy = 'key') => (
-	hooks.useList(firebase.database().ref(path).orderByChild(orderBy))
-)
+export const useList = (path, {sortBy = 'key'} = {}) => {
+	const ref = firebase.database().ref(path).orderByChild(sortBy)
+	const { loading, value, error } = hooks.useList(ref)
+	if (error) throw error
+	return { loading, value }
+}
+
 
 export const useAuthActions = () => ({
 	signIn: useErrorPropagation(signIn),

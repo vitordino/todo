@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useAuthState, useList } from '../../utils/firebase-hooks'
 import { useInputState } from '../../utils/hooks'
 import { toArray } from '../../utils/firebase'
@@ -7,38 +7,27 @@ import Container from '../Container'
 import Select from '../Select'
 import ListItem, {LoadingItem} from './ListItem'
 
-const sortOptions = {
-	'key': 'Created',
-	'dueTime': 'Due time',
-	'priority': 'Priority',
-}
-
+const sortOptions = {key: 'Created', dueTime: 'Due time', priority: 'Priority'}
 const filterOptions = ['All', 'Current', 'Completed']
-const filterCompleted = (filter, array) => {
-	// handle filtering options (very hacky)
-	if(!+filter) return array
-	return array.filter(({completed}) => completed === !!(filter - 1))
+const getFilteredList = (filter, snapshot) => {
+	if(!filter) return toArray(snapshot)
+	return toArray(snapshot).filter(({completed}) => completed|0 === filter - 1)
 }
 
-const List = props => {
+/* eslint-disable no-mixed-operators */
+
+const EmptyList = ({filter = 0}) => (
+	<EmptyState>
+		You don’t have any {(filter && filterOptions[filter] || '').toLowerCase()} tasks
+	</EmptyState>
+)
+
+const Wrapper = ({render, children = render, ...props}) => {
 	const { uid } = useAuthState()
 	const [sortBy, setSortBy] = useInputState('key')
-	const [filter, setFilter] = useInputState(0)
-	const { error, loading, value: list } = useList(`todos/${uid}`, sortBy)
-
-	if(error) return <EmptyState img='3'>error: {error.message}</EmptyState>
-	if(loading)return (
-		<Container {...props}>
-			<div style={{display: 'flex', justifyContent: 'space-between'}}>
-				<Select value={filter} onChange={setFilter} options={filterOptions}/>
-				<Select value={sortBy} onChange={setSortBy} options={sortOptions} icon='shuffle'/>
-			</div>
-			<LoadingItem/><LoadingItem/>
-		</Container>
-	)
-	if(!list || !list.length) return <EmptyState>You don’t have any tasks yet</EmptyState>
-
-	const array = filterCompleted(filter, toArray(list))
+	const [filter, setFilter] = useInputState('0')
+	const { loading, value } = useList(`todos/${uid}`, {sortBy})
+	const list = loading ? [] : getFilteredList(filter|0, value)
 
 	return (
 		<Container {...props}>
@@ -46,12 +35,19 @@ const List = props => {
 				<Select value={filter} onChange={setFilter} options={filterOptions}/>
 				<Select value={sortBy} onChange={setSortBy} options={sortOptions} icon='shuffle'/>
 			</div>
-			{(!array || !array.length)
-				? <EmptyState>You don’t have any {(filterOptions[filter] || '').toLowerCase()} tasks</EmptyState>
-				: array.map((x, i) => <ListItem {...x} key={x.key} id={x.key} index={i}/>)
-			}
+			{children && children({sortBy, filter: filter|0, loading, list}) || null}
 		</Container>
 	)
 }
+
+const List = props => (
+	<Wrapper {...props}>
+		{({filter, loading, list}) => {
+			if (loading) return <Fragment><LoadingItem/><LoadingItem/></Fragment>
+			if (!list.length) return <EmptyList filter={filter}/>
+			return list.map((x, i) => <ListItem {...x} key={x.key} id={x.key} index={i}/>)
+		}}
+	</Wrapper>
+)
 
 export default List
