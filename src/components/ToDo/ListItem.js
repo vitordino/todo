@@ -8,15 +8,6 @@ import Feather from '../Feather'
 import RelativeTime from '../RelativeTime'
 import {Paragraph} from '../Text'
 
-const glow = keyframes`
-	from{
-		box-shadow: 0 0 0 2px hsla(-8,100%,50%,1), 0 0 0rem 0 hsla(-8,100%,50%,0);
-	}
-	to{
-		box-shadow: 0 0 0 2px hsla(-8,100%,50%,1), 0 0 1.5rem 2px hsla(-8,100%,50%,0.2);
-	}
-`
-
 const Wrapper = styled.div`
 	display: flex;
 	align-items: stretch;
@@ -24,15 +15,7 @@ const Wrapper = styled.div`
 	padding: 0.5rem 0.75rem;
 	margin: 1rem 0;
 	background: ${p => !p.completed && p.theme.colors.white};
-	border: 1px dashed transparent;
-	border-color: ${p => p.completed && p.theme.colors.base11};
 	border-radius: 0.25rem;
-	box-sizing: border-box;
-	overflow-x: hidden;
-	${p => p.expired && !p.completed && css`
-		box-shadow: 0 0 0 2px hsla(-8,100%,50%,1)};
-		animation: ${glow} 0.5s ${p => (p.index+1)/8}s alternate infinite;
-	`}
 `
 
 const CompleteButton = styled.button`
@@ -46,6 +29,8 @@ const CompleteButton = styled.button`
 	cursor: pointer;
 	color: ${p => p.completed ? p.theme.colors.base22 : p.theme.colors.base11};
 	outline: none;
+	position: relative;
+	z-index: 2;
 	&:hover, &:focus, &:active{
 		color: ${p => p.theme.colors.base66};
 	}
@@ -86,6 +71,7 @@ const DeleteButton = styled.button`
 		opacity: 1;
 	}
 	&:hover, &:focus, &:active {
+		z-index: 1;
 		background: crimson;
 		color: ${p => p.theme.colors.white};
 		box-shadow: none;
@@ -98,6 +84,31 @@ const Details = styled(Paragraph).attrs({
 	weight: 600,
 })`
 	letter-spacing: 0.025rem;
+`
+
+
+const glow = keyframes`
+	from{
+		box-shadow: 0 0 0rem 0 hsla(-8,100%,50%,0);
+	}
+	to{
+		box-shadow: 0 0 1.5rem 2px hsla(-8,100%,50%,0.2);
+	}
+`
+
+const Border = styled.div`
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 0.25rem;
+	border: ${p => p.completed && `1px dashed ${p.theme.colors.base11}`};
+	${p => p.expired && !p.completed && css`
+		border: 2px solid hsla(-8,100%,50%,1)};
+		animation: ${glow} 0.5s ${p => (p.index+1)/8}s alternate infinite;
+	`}
 `
 
 const ListItem = ({
@@ -137,6 +148,7 @@ const ListItem = ({
 					<Feather icon='delete'/>
 				</DeleteButton>
 			</div>
+			<Border completed={completed} expired={expired} index={index}/>
 		</Wrapper>
 	)
 }
@@ -150,10 +162,9 @@ export const LoadingItem = props => (
 			secondaryColor="#ecebeb"
 			{...props}
 		>
-			<circle cx="14" cy="28" r="11" />
-			<rect x="42" y="7" rx="2" ry="2" width="96" height="12" />
-			<rect x="42" y="31" rx="2" ry="2" width="192" height="16" />
-
+			<circle cx="14" cy="28" r="11"/>
+			<rect x="42" y="7" rx="2" ry="2" width="96" height="12"/>
+			<rect x="42" y="31" rx="2" ry="2" width="192" height="16"/>
 		</ContentLoader>
 	</Wrapper>
 )
