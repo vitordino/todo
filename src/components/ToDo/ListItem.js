@@ -42,6 +42,7 @@ const Main = styled.div`
 	flex: 1;
 	word-break: break-all;
 	padding: 0.5rem 0.75rem 0.5rem 0;
+	position: relative;
 `
 
 const Top = styled.div`
@@ -95,7 +96,7 @@ const glow = keyframes`
 		box-shadow: 0 0 0rem 0 hsla(-8,100%,50%,0);
 	}
 	to{
-		box-shadow: 0 0 1.5rem 2px hsla(-8,100%,50%,0.2);
+		box-shadow: 0 0 1.5rem 0.125rem hsla(-8,100%,50%,0.2);
 	}
 `
 
@@ -109,9 +110,27 @@ const Border = styled.div`
 	border-radius: 0.25rem;
 	border: ${p => p.completed && `1px dashed ${p.theme.colors.base11}`};
 	${p => p.expired && !p.completed && css`
-		border: 2px solid hsla(-8,100%,50%,1)};
+		border: 0.125rem solid hsla(-8,100%,50%,1)};
 		animation: ${glow} 0.5s ${p => (p.index+1)/8}s alternate infinite;
 	`}
+`
+const getClipPath = ({created, dueTime, currentTime}) => {
+	const percentage =  (1 + (currentTime - dueTime)/(dueTime - created))*100
+	return `polygon(0 100%, 0 0, ${percentage}% 0, ${percentage}% 100%)`
+}
+
+const Progress = styled.div`
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 0.25rem;
+	border-bottom: 0.125rem solid ${p => !p.completed && p.theme.colors.base22};
+	clip-path: ${getClipPath};
+	transition: clip-path 1s;
+	will-change: clip-path;
 `
 
 const ListItem = ({
@@ -124,9 +143,12 @@ const ListItem = ({
 	index,
 	...props
 }) => {
-	const expired = useCurrentTime(current => current > dueTime)
+	const currentTime = useCurrentTime()
+	const expired = useCurrentTime(currentTime => currentTime > dueTime)
+
 	return (
 		<Wrapper expired={expired} completed={completed} index={index}>
+			{!(expired || completed) && <Progress created={created} currentTime={currentTime} dueTime={dueTime}/>}
 			<CompleteButton
 				completed={completed}
 				onClick={() => updateToDo(id, {completed: !completed})}
