@@ -36,7 +36,7 @@ const CloseWrapper = styled.div`
 const Icon = props => <Feather size={20} strokeWidth={1.75} {...props}/>
 
 const Alert = ({message, options: {type}, close, style}) => {
-	useEffect(() => new Audio('/assets/sounds/pop.m4a').play(), [])
+	useEffect(() => {new Audio('/assets/sounds/pop.m4a').play()}, [])
 	return (
 		<Wrapper type={type} style={style}>
 			{type === 'error' && <Icon icon='alert-circle' />}
