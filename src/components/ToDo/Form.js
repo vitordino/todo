@@ -84,6 +84,7 @@ const Form = () => {
 								label='Due time'
 								required
 								small
+								min={initialDueTime}
 								{...date('dueTime')}
 								type='datetime-local'
 								style={{marginRight: '3rem'}}
