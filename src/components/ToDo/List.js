@@ -49,7 +49,7 @@ const Wrapper = ({render, children = render, alert, ...props}) => {
 	const [sortBy, setSortBy] = useInputState('key')
 	const [filter, setFilter] = useInputState('0')
 	const { loading, value: allTodos } = useList(`todos/${uid}`, {sortBy})
-	const list = loading ? [] : getFilteredList(filter|0, allTodos)
+	const list = loading ? [] : getFilteredList(filter|0, allTodos).reverse()
 
 	// manage alerts
 	const [alerts, overdue] = useTodoAlerts(list)
