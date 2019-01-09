@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { useAuthState, useList } from '../../utils/firebase-hooks'
-import { addMinutes, differenceInMinutes } from 'date-fns'
+import { differenceInMinutes } from 'date-fns'
 import { withAlert } from 'react-alert'
 import { useInputState } from '../../utils/hooks'
 import { toArray } from '../../utils/firebase'
