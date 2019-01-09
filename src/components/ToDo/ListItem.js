@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled, { keyframes, css } from 'styled-components'
+import { differenceInMinutes } from 'date-fns'
+import { withAlert } from 'react-alert'
 import { removeToDo, updateToDo } from '../../actions'
 import { useCurrentTime } from '../../contexts/CurentTime'
 import {getPriorityColor, getPriorityText, getDueTimeColor} from '../../utils/item'
@@ -143,6 +145,26 @@ const Progress = styled.div`
 	will-change: clip-path;
 `
 
+
+const approximatlyEqual = (a, b, factor = 1e4) => (
+	Math.round(a/factor) === Math.round(b/factor)
+)
+const isWithinMinutes = (a, b, minutes = 5) => (
+	Math.abs(differenceInMinutes(a, b)) < minutes
+)
+
+const useTodoAlerts = list => useCurrentTime(currentTime => {
+	const alerts = list.filter(todo => {
+		if(currentTime > todo.dueTime) return false
+		return isWithinMinutes(currentTime, todo.dueTime, 5)
+	})
+	const overdue = list.filter(
+		todo => approximatlyEqual(todo.dueTime, currentTime)
+	)
+	return [alerts, overdue]
+})
+
+
 const ListItem = ({
 	hidden,
 	created,
@@ -152,10 +174,21 @@ const ListItem = ({
 	title,
 	id,
 	index,
+	alert,
 	...props
 }) => {
 	const currentTime = useCurrentTime()
-	const expired = useCurrentTime(currentTime => currentTime > dueTime)
+	const expired = currentTime > dueTime
+
+	// manage alerts
+	const [alerts, overdue] = useTodoAlerts([{title, dueTime, id}])
+	useEffect(() => {
+		if(alerts.length) alerts.forEach(({title}) => alert.info(`${title} is about to expire`))
+	}, [...alerts.map(a => a.id)])
+
+	useEffect(() => {
+		if(overdue.length) overdue.forEach(({title}) => alert.error(`${title} is overdue`))
+	}, [...overdue.map(a => a.id)])
 
 	return (
 		<Wrapper hidden={hidden} expired={expired} completed={completed} index={index}>
@@ -205,4 +238,4 @@ export const LoadingItem = props => (
 	</Wrapper>
 )
 
-export default ListItem
+export default withAlert(ListItem)
