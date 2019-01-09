@@ -9,7 +9,7 @@ import RelativeTime from '../RelativeTime'
 import { Paragraph } from '../Text'
 
 const Wrapper = styled.div`
-	display: flex;
+	display: ${p => p.hidden ? 'none' : 'flex'};
 	align-items: stretch;
 	position: relative;
 	margin: 1rem 0;
@@ -144,6 +144,7 @@ const Progress = styled.div`
 `
 
 const ListItem = ({
+	hidden,
 	created,
 	completed,
 	dueTime,
@@ -157,7 +158,7 @@ const ListItem = ({
 	const expired = useCurrentTime(currentTime => currentTime > dueTime)
 
 	return (
-		<Wrapper expired={expired} completed={completed} index={index}>
+		<Wrapper hidden={hidden} expired={expired} completed={completed} index={index}>
 			{!(expired || completed) && <Progress created={created} currentTime={currentTime} dueTime={dueTime}/>}
 			<CompleteButton
 				completed={completed}

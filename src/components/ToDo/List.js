@@ -14,7 +14,7 @@ const sortOptions = {key: 'Created', dueTime: 'Due time', priority: 'Priority'}
 const filterOptions = ['All', 'Current', 'Completed']
 const getFilteredList = (filter, snapshot) => {
 	if(!filter) return toArray(snapshot)
-	return toArray(snapshot).filter(({completed}) => completed === !!(filter - 1))
+	return toArray(snapshot).map((props) => ({...props, hidden: props.completed === !(filter - 1)}))
 }
 
 /* eslint-disable no-mixed-operators */
@@ -78,7 +78,11 @@ const List = props => (
 	<Wrapper {...props}>
 		{({filter, loading, list}) => {
 			if (loading) return <Fragment><LoadingItem/><LoadingItem/></Fragment>
-			if (!list.length) return <EmptyList filter={filter}/>
+
+			if (!list.length || list.every(({hidden}) => !!hidden)) return (
+				<EmptyList filter={filter}/>
+			)
+
 			return list.map((x, i) => <ListItem {...x} key={x.key} id={x.key} index={i}/>)
 		}}
 	</Wrapper>
