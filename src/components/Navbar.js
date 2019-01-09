@@ -38,6 +38,7 @@ const Button = styled.button`
 
 const ButtonText = styled.div`
 	font-size: 0.875rem;
+	line-height: 1.125rem;
 	text-transform: uppercase;
 	font-weight: 700;
 	letter-spacing: 0.025rem;
