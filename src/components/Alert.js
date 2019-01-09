@@ -24,7 +24,6 @@ const Wrapper = styled.div`
 
 const Message = styled.div`
 	flex: 1;
-	margin: 0 0.75rem;
 	font-weight: 500;
 `
 
@@ -36,6 +35,7 @@ const CloseWrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	margin-left: 1rem;
 	color: ${p => p.theme.colors.white};
 `
 
