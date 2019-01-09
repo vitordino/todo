@@ -50,10 +50,10 @@ const Navbar = ({alert, ...props}) => {
 	const { signIn, signOut } = useAuthActions()
 
 	const signInAction = (...args) => {
-		signIn(...args).then(() => alert.show('✨  welcome home'))
+		signIn(...args).then(() => alert.success('✨  welcome home'))
 	}
 	const signOutAction = (...args) => {
-		signOut(...args).then(() => alert.show('👋  see you later'))
+		signOut(...args).then(() => alert.success('👋  see you later'))
 	}
 
 	return (

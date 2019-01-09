@@ -2,9 +2,15 @@ import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import Feather from './Feather'
 
+const getBackgroundColor = ({type, theme}) => {
+	if(type === 'error') return 'red'
+	if(type === 'info') return 'coral'
+	if(type === 'success') return 'dodgerblue'
+}
+
 /* eslint-disable */
 const Wrapper = styled.div`
-	background-color: ${p => p.theme.colors.base88};
+	background-color: ${getBackgroundColor};
 	color: ${p => p.theme.colors.white};
 	border-radius: 0.25rem;
 	display: flex;
@@ -18,7 +24,7 @@ const Wrapper = styled.div`
 
 const Message = styled.div`
 	flex: 1;
-	margin: 0 1rem 0 0.75rem;
+	margin: 0 0.75rem;
 	font-weight: 500;
 `
 
@@ -33,13 +39,10 @@ const CloseWrapper = styled.div`
 	color: ${p => p.theme.colors.white};
 `
 
-const Icon = props => <Feather size={20} strokeWidth={1.75} {...props}/>
-
 const Alert = ({message, options: {type}, close, style}) => {
 	useEffect(() => {new Audio('/assets/sounds/pop.m4a').play()}, [])
 	return (
 		<Wrapper type={type} style={style}>
-			{type === 'error' && <Icon icon='alert-circle' />}
 			<Message>{message}</Message>
 			<CloseWrapper role='button' onClick={close}>
 				<Feather size={18} icon='x' />

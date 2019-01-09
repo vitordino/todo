@@ -55,11 +55,11 @@ const Wrapper = ({render, children = render, alert, ...props}) => {
 	const [alerts, overdue] = useTodoAlerts(list)
 
 	useEffect(() => {
-		if(alerts.length) alerts.forEach(({title}) => alert.show(`${title} is about to expire`))
+		if(alerts.length) alerts.forEach(({title}) => alert.info(`${title} is about to expire`))
 	}, [...alerts.map(a => a.key)])
 
 	useEffect(() => {
-		if(overdue.length) overdue.forEach(({title}) => alert.show(`${title} is overdue`))
+		if(overdue.length) overdue.forEach(({title}) => alert.error(`${title} is overdue`))
 	}, [...overdue.map(a => a.key)])
 
 
