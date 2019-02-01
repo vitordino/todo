@@ -7,11 +7,11 @@ if (!REACT_APP_FIREBASE_API_KEY) throw new Error('missing REACT_APP_FIREBASE_API
 
 const config = {
 	apiKey: REACT_APP_FIREBASE_API_KEY,
-	authDomain: 'chama-challenge.firebaseapp.com',
-	databaseURL: 'https://chama-challenge.firebaseio.com',
-	projectId: 'chama-challenge',
-	storageBucket: 'chama-challenge.appspot.com',
-	messagingSenderId: '539891775343',
+	authDomain: 'vitordino-todo.firebaseapp.com',
+	databaseURL: 'https://vitordino-todo.firebaseio.com',
+	projectId: 'vitordino-todo',
+	storageBucket: 'vitordino-todo.appspot.com',
+	messagingSenderId: '1044459603797',
 }
 
 firebase.initializeApp(config)
