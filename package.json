@@ -1,7 +1,8 @@
 {
-  "name": "chama-assignment",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vitordino-todo",
+  "version": "1.0.0",
+  "private": false,
+  "license": "MIT",
   "dependencies": {
     "date-fns": "^2.0.0-alpha.26",
     "firebase": "^5.7.2",
@@ -23,7 +24,7 @@
     "start": "react-scripts start",
     "dev": "NODE_ENV=development react-scripts start",
     "build": "NODE_ENV=production react-scripts build",
-    "deploy": "NODE_ENV=production react-scripts build && firebase deploy --project chama-challenge --token $FIREBASE_TOKEN.",
+    "deploy": "NODE_ENV=production react-scripts build && firebase deploy --project vitordino-todo --token $FIREBASE_TOKEN.",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

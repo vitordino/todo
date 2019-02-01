@@ -104,7 +104,7 @@ const Form = () => {
 						</Flex>
 						<Input
 							label='Title'
-							placeholder='Order LGP with Chama…'
+							placeholder='What’s next?…'
 							required
 							{...text('title')}
 						/>

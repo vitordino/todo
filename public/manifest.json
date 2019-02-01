@@ -1,6 +1,6 @@
 {
-  "short_name": "Chama Assignment",
-  "name": "firebase ToDo app",
+  "short_name": "TO — DO",
+  "name": "to do app with priority and due time",
   "icons": [
     {
       "src": "favicon.ico",

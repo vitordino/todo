@@ -7,4 +7,4 @@ install:
   - yarn
 after_success:
   - yarn run build
-  - firebase --project chama-challenge --token $FIREBASE_TOKEN deploy --public build
+  - firebase --project vitordino-todo --token $FIREBASE_TOKEN deploy --public build
